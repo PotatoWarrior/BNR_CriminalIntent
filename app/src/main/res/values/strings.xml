@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">CriminalIntent</string>
+    <string name="crime_title_hint">Enter a title for the crime</string>
+    <string name="crime_title_label">Title</string>
+    <string name="crime_details_label">Details</string>
+    <string name="crime_solved_label">Solved</string>
+    <string name="contact_police_button">Police</string>
+    <string name="first_button">First</string>
+    <string name="last_button">Last</string>
+    <string name="date_picker_title">Date of crime:</string>
+    <string name="time_picker_title">Time of crime:</string>
+    <string name="police_required_check_box">Police required</string>
+    <string name="ok_button">OK</string>
+    <string name="new_crime">New crime</string>
+    <string name="show_subtitle">Show subtitle</string>
+    <string name="hide_subtitle">Hide subtitle</string>
+    <plurals name="subtitle_plurals">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
+    <string name="delete_crime">Delete crime</string>
+    <string name="no_crime_text_view">There are no crimes</string>
+    <string name="crime_suspect_text">Choose suspectName</string>
+    <string name="crime_report_text">Send crime report</string>
+    <string name="crime_report">%1$s! The crime was discovered on %2$s. %3$s, and %4$s. %5$s</string>
+    <string name="crime_report_solved">The case is solved</string>
+    <string name="crime_report_unsolved">The case is not solved</string>
+    <string name="crime_report_no_suspect">there is no suspect</string>
+    <string name="crime_report_suspect">the suspect is %s</string>
+    <string name="crime_report_subject">CriminalIntent CrimeReport</string>
+    <string name="send_report">Send crime report via</string>
+    <string name="crime_report_police_required">Police is required!</string>
+    <string name="crime_report_police_not_required">Police is not required.</string>
+    <string name="call_suspect">Call suspect</string>
+</resources>
