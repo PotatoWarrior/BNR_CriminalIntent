@@ -1,12 +1,12 @@
 package com.dmko.criminalintent.controller.fragment;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dmko.criminalintent.R;
-import com.dmko.criminalintent.controller.activity.CrimePagerActivity;
 import com.dmko.criminalintent.model.Crime;
 import com.dmko.criminalintent.model.CrimeLab;
 import com.dmko.criminalintent.util.DateTimeFormats;
@@ -34,6 +33,23 @@ public class CrimeListFragment extends Fragment {
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
     private static final String KEY_SUBTITILE_VISIBILITY = "subtitle_visible";
+    private Callbacks mCallbacks;
+
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView mTitleTextView, mDataTextView;
@@ -58,7 +74,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            startActivity(CrimePagerActivity.newIntent(getActivity(), mCrime.getId()));
+            mCallbacks.onCrimeSelected(mCrime);
         }
     }
 
@@ -118,16 +134,30 @@ public class CrimeListFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Crime crime = ((CrimeHolder) viewHolder).mCrime;
+                CrimeLab.getInstance(getActivity()).deleteCrime(crime.getId());
+                updateUI();
+            }
+        });
+        helper.attachToRecyclerView(mCrimeRecyclerView);
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(KEY_SUBTITILE_VISIBILITY);
         }
@@ -175,6 +205,7 @@ public class CrimeListFragment extends Fragment {
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
+                updateSubtitle();
                 getActivity().invalidateOptionsMenu();
                 return true;
             default:
@@ -185,11 +216,11 @@ public class CrimeListFragment extends Fragment {
     private void startAddCrimeActivity() {
         Crime crime = new Crime();
         CrimeLab.getInstance(getActivity()).addCrime(crime);
-        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
-        startActivity(intent);
+        updateUI();
+        mCallbacks.onCrimeSelected(crime);
     }
 
-    private void updateUI() {
+    public void updateUI() {
         CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
         if (!crimes.isEmpty()) {

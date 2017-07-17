@@ -19,7 +19,7 @@ import com.dmko.criminalintent.model.CrimeLab;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks{
     private ViewPager mViewPager;
     private Button mFirstButton, mLastButton;
     private List<Crime> mCrimes;
@@ -100,5 +100,10 @@ public class CrimePagerActivity extends AppCompatActivity {
 
         if (position == mCrimes.size() - 1) mLastButton.setEnabled(false);
         else mLastButton.setEnabled(true);
+    }
+
+    @Override
+    public void onCrimeUpdate(Crime crime) {
+
     }
 }

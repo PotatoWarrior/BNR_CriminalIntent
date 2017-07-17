@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Преступное намерение</string>
+    <string name="crime_title_hint">Введите заголовок преступления</string>
+    <string name="crime_title_label">Заголовок</string>
+    <string name="crime_details_label">Детали</string>
+    <string name="crime_solved_label">Решение принято</string>
+    <string name="contact_police_button">Полиция</string>
+    <string name="first_button">К первому</string>
+    <string name="last_button">К последнему</string>
+    <string name="date_picker_title">Дата преступления:</string>
+    <string name="time_picker_title">Время преступления:</string>
+    <string name="police_required_check_box">Требуется полиция</string>
+    <string name="ok_button">OK</string>
+    <string name="new_crime">Добавить преступление</string>
+    <string name="show_subtitle">Показать количество</string>
+    <string name="hide_subtitle">Спрятать количество</string>
+    <plurals name="subtitle_plurals">
+        <item quantity="zero">%1$d преступлений</item>
+        <item quantity="one">%1$d преступление</item>
+        <item quantity="two">%1$d преступления</item>
+        <item quantity="few">%1$d преступления</item>
+        <item quantity="many">%1$d преступлений</item>
+        <item quantity="other">%1$d преступлений</item>
+    </plurals>
+    <string name="delete_crime">Удалить преступление</string>
+    <string name="no_crime_text_view">Преступлений нет</string>
+    <string name="crime_suspect_text">Выбрать имя подозреваемого</string>
+    <string name="crime_report_text">Отправить отчет о преступлении</string>
+    <string name="crime_report">%1$s! Преступление было зафиксировано %2$s. %3$s, и %4$s. %5$s</string>
+    <string name="crime_report_solved">Решение принято</string>
+    <string name="crime_report_unsolved">Решение не принято</string>
+    <string name="crime_report_no_suspect">нет подозреваемых</string>
+    <string name="crime_report_suspect">подозревается %s</string>
+    <string name="crime_report_subject">Преступное намерение. Отчет по преступлению.</string>
+    <string name="send_report">Отправить отчет по преступлению с помощью:</string>
+    <string name="crime_report_police_required">Требуется вмешательство полиции!</string>
+    <string name="crime_report_police_not_required">Вмешательство полиции не требуется.</string>
+    <string name="call_suspect">Позвонить подозреваемому</string>
+</resources>

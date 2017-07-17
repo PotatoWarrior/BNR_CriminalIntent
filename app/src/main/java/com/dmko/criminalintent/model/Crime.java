@@ -64,6 +64,10 @@ public class Crime {
         mSuspectName = suspectName;
     }
 
+    public String getPhotoFileName() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
+
     @Override
     public int hashCode() {
         int result = mId.hashCode();
